@@ -41,8 +41,6 @@ fn get_hand_type(card: &str) -> HashMap<char, u8> {
         *counts.entry(c).or_insert(0) += 1;
     }
 
-    println!("original counts => {:?}", counts);
-
     if counts.len() > 1 {
         let max_char = counts
             .iter()
@@ -51,13 +49,11 @@ fn get_hand_type(card: &str) -> HashMap<char, u8> {
             .map(|(&char, _)| char.to_string())
             .expect("Should be present as it was in the hashmap");
 
-        println!("max_char => {:?}", max_char);
         let jokerified_card = card.replace('J', &max_char);
 
         for c in jokerified_card.chars() {
             *jokerified_counts.entry(c).or_insert(0) += 1;
         }
-        println!("jokerified_card => {:?}\n", jokerified_card);
 
         if jokerified_counts.len() <= 1 {
             jokerified_counts.insert('X', 0);
